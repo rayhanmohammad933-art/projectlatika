@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiseBalance - Cek Pola Kesehatan Anda</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link ke file CSS terpisah -->
+</head>
+<body>
+    <!-- Halaman Login: Muncul pertama kali -->
+    <div id="login" class="login">
+        <form id="loginForm">
+            <h2>Login ke RiseBalance</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Masukkan username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Masukkan password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Aplikasi Utama: Hidden sampai login -->
+    <div id="app" style="display: none;">
+        <div class="container">
+            <header>
+                <h1>RiseBalance</h1>
+                <!-- Profil: Akan diisi JS setelah input nama/umur -->
+                <div class="profile" id="profile">
+                    <!-- Placeholder: Nama dan umur akan ditampilkan di sini -->
+                </div>
+            </header>
+
+            <!-- Navigasi Tabs Horizontal -->
+            <div class="tabs">
+                <div class="tab active" data-tab="sleep">Cek Kualitas Tidur</div>
+                <div class="tab" data-tab="diet">Cek Pola Makan</div>
+                <div class="tab" data-tab="bmi">Cek BMI</div>
+                <div class="tab" data-tab="tips">Tips Pola Hidup Sehat</div>
+            </div>
+
+            <!-- Konten Tab: Cek Kualitas Tidur -->
+            <div id="sleep" class="tab-content active">
+                <h3>Cek Kualitas Tidur</h3>
+                <form id="sleepForm">
+                    <label for="sleepTime">Waktu Tidur (jam, e.g., 22 untuk 10 PM):</label>
+                    <input type="number" id="sleepTime" min="0" max="24" step="0.5" placeholder="e.g., 22" required>
+                    <label for="wakeTime">Waktu Bangun (jam, e.g., 6 untuk 6 AM):</label>
+                    <input type="number" id="wakeTime" min="0" max="24" step="0.5" placeholder="e.g., 6" required>
+                    <label for="feeling">Perasaan Setelah Bangun:</label>
+                    <select id="feeling" required>
+                        <option value="baik">Baik (Segar dan Energik)</option>
+                        <option value="buruk">Buruk (Lelah atau Ngantuk)</option>
+                    </select>
+                    <label for="habit">Kebiasaan Sebelum Tidur:</label>
+                    <select id="habit" required>
+                        <option value="baik">Baik (Tidak pakai gadget, relaksasi)</option>
+                        <option value="buruk">Buruk (Pakai gadget, kafein)</option>
+                    </select>
+                    <button type="submit">Cek Kualitas</button>
+                </form>
+                <!-- Hasil: Akan muncul setelah submit -->
+                <div id="sleepResult" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- Konten Tab: Cek Pola Makan -->
+            <div id="diet" class="tab-content">
+                <h3>Cek Pola Makan</h3>
+                <form id="dietForm">
+                    <label for="foodAmount">Jumlah Asupan Makanan Berat (gram/hari, total semua makanan):</label>
+                    <input type="number" id="foodAmount" min="0" step="10" placeholder="e.g., 500" required>
+                    <label for="foodTypes">Jenis Makanan (pisahkan dengan koma, e.g., nasi, daging, sayur):</label>
+                    <textarea id="foodTypes" placeholder="e.g., nasi, daging ayam, sayur bayam" required></textarea>
+                    <button type="submit">Cek Pola Makan</button>
+                </form>
+                <!-- Hasil: Akan muncul setelah submit -->
+                <div id="dietResult" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- Konten Tab: Cek BMI -->
+            <div id="bmi" class="tab-content">
+                <h3>Cek BMI</h3>
+                <form id="bmiForm">
+                    <label for="weight">Berat Badan (kg):</label>
+                    <input type="number" id="weight" min="0" step="0.1" placeholder="e.g., 70" required>
+                    <label for="height">Tinggi Badan (cm):</label>
+                    <input type="number" id="height" min="0" step="0.1" placeholder="e.g., 170" required>
+                    <button type="submit">Hitung BMI</button>
+                </form>
+                <!-- Hasil: Akan muncul setelah submit -->
+                <div id="bmiResult" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- Konten Tab: Tips Pola Hidup Sehat -->
+            <div id="tips" class="tab-content">
+                <h3>Tips Pola Hidup Sehat</h3>
+                <!-- Tips: Akan muncul setelah cek dilakukan -->
+                <div id="tipsContent" class="tips" style="display: none;"></div>
+                <!-- Tombol Share dan Download -->
+                <div class="actions">
+                    <button id="shareBtn">Bagikan Hasil</button>
+                    <button id="downloadBtn">Unduh Hasil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Link ke file JS terpisah -->
+</body>
+</html>
