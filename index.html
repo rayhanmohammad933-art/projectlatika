@@ -7,20 +7,8 @@
     <link rel="stylesheet" href="style.css"> <!-- Link ke file CSS terpisah -->
 </head>
 <body>
-    <!-- Halaman Login: Muncul pertama kali -->
-    <div id="login" class="login">
-        <form id="loginForm">
-            <h2>Login ke RiseBalance</h2>
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Masukkan username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" placeholder="Masukkan password" required>
-            <button type="submit">Login</button>
-        </form>
-    </div>
-
-    <!-- Aplikasi Utama: Hidden sampai login -->
-    <div id="app" style="display: none;">
+    <!-- Aplikasi Utama: Langsung tampil tanpa login -->
+    <div id="app">
         <div class="container">
             <header>
                 <h1>RiseBalance</h1>
