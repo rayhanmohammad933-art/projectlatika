@@ -171,30 +171,6 @@ button:hover {
     min-width: 120px;
 }
 
-/* Login Page: Full screen, gradasi background */
-.login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    color: white;
-}
-.login form {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 300px;
-}
-.login h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #1e3a8a;
-}
-
 /* Responsivitas: Untuk mobile */
 @media (max-width: 768px) {
     .container {
