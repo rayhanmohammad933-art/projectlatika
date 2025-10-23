@@ -4,7 +4,7 @@ function loadProfile() {
     const age = localStorage.getItem('age');
     const gender = localStorage.getItem('gender');
     const height = localStorage.getItem('height');
-    const weight = localStorage.getItem('weight');
+    const weight = localStorage.getItem('weight'); 
     if (name && age) {
         document.getElementById('profile-section').classList.add('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
