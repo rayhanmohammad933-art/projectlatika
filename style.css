@@ -1,192 +1,61 @@
-/* Reset dasar untuk konsistensi */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Font dan body utama: Modern sans-serif, gradasi background halus */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); /* Gradasi putih ke biru muda halus */
-    color: #1e293b; /* Teks gelap untuk kontras */
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa; /* Biru muda */
+    color: #01579b; /* Biru gelap */
+    margin: 0;
+    padding: 20px;
 }
-
-/* Container utama: Lebar maksimal, padding, shadow untuk efek modern */
 .container {
     max-width: 800px;
     margin: 0 auto;
+    background-color: white;
     padding: 20px;
-    background: white; /* Dasar putih */
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow ringan */
-    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-/* Header: Judul dengan gradasi teks */
-header {
-    text-align: center;
-    margin-bottom: 30px;
+h1, h2 {
+    color: #0277bd; /* Biru sedang */
 }
-h1 {
-    font-size: 2.5rem;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); /* Gradasi biru tua ke biru muda */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
-}
-
-/* Profil: Gradasi background, teks putih */
-.profile {
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Navigasi Tabs: Horizontal, dengan transisi smooth */
-.tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e2e8f0;
-    flex-wrap: wrap; /* Responsif untuk mobile */
-}
-.tab {
-    padding: 10px 20px;
-    cursor: pointer;
-    background: white;
-    border-radius: 8px 8px 0 0;
-    transition: all 0.3s ease; /* Animasi smooth */
-    font-weight: 500;
-    flex: 1; /* Sama lebar */
-    text-align: center;
-}
-.tab.active {
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    color: white;
-}
-.tab:hover {
-    transform: translateY(-2px); /* Efek hover */
-}
-
-/* Konten Tab: Hidden by default, smooth fade-in */
-.tab-content {
-    display: none;
-    padding: 20px;
-    background: #f8fafc; /* Latar abu-abu muda */
-    border-radius: 8px;
-    margin-top: 10px;
-    animation: fadeIn 0.3s ease; /* Animasi masuk */
-}
-.tab-content.active {
-    display: block;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Form: Flex column, gap untuk spacing */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin-bottom: 20px;
 }
-label {
-    font-weight: 500;
-    color: #374151;
-}
-input, select, textarea {
+input, select, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
     padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #0277bd;
+    border-radius: 5px;
 }
-input:focus, select:focus, textarea:focus {
-    border-color: #3b82f6;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); /* Focus ring */
-}
-textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-/* Button: Gradasi, hover effect */
 button {
-    padding: 12px;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background-color: #0277bd;
     color: white;
-    border: none;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #01579b;
 }
-
-/* Hasil: Background biru muda, border kiri */
 .result {
     margin-top: 20px;
-    padding: 15px;
-    background: #e0f2fe;
-    border-radius: 8px;
-    border-left: 4px solid #3b82f6;
-    font-weight: 500;
+    padding: 10px;
+    border-radius: 5px;
 }
-
-/* Tips: Background kuning muda, border kiri */
-.tips {
-    margin-top: 20px;
-    padding: 15px;
-    background: #fef3c7;
-    border-radius: 8px;
-    border-left: 4px solid #f59e0b;
+.good {
+    background-color: #c8e6c9;
+    color: #2e7d32;
 }
-.tips ul {
-    list-style: disc;
-    margin-left: 20px;
+.bad {
+    background-color: #ffcdd2;
+    color: #c62828;
 }
-
-/* Actions (Share & Download): Flex untuk tombol */
-.actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.hidden {
+    display: none;
 }
-.actions button {
-    flex: 1;
-    min-width: 120px;
+.social-share {
+    margin-top: 10px;
 }
-
-/* Responsivitas: Untuk mobile */
-@media (max-width: 768px) {
-    .container {
-        margin: 10px;
-        padding: 15px;
-    }
-    h1 {
-        font-size: 2rem;
-    }
-    .tabs {
-        flex-direction: column;
-    }
-    .tab {
-        margin-bottom: 5px;
-    }
-    .actions {
-        flex-direction: column;
-    }
+.social-share a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #0277bd;
 }
