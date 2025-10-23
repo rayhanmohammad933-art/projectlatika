@@ -49,19 +49,47 @@ function showChecker(type) {
     } else if (type === 'diet') {
         document.getElementById('checker-title').textContent = 'Cek Pola Makan';
         form.innerHTML = `
-            <p>Apakah Anda makan sayur dan buah setiap hari? <select id="diet-q1"><option value="ya">Ya</option><option value="tidak">Tidak</option></select></p>
-            <p>Apakah Anda minum air putih minimal 8 gelas sehari? <select id="diet-q2"><option value="ya">Ya</option><option value="tidak">Tidak</option></select></p>
-            <p>Apakah Anda menghindari makanan cepat saji? <select id="diet-q3"><option value="ya">Ya</option><option value="tidak">Tidak</option></select></p>
+            <input type="number" id="diet-meals" placeholder="Berapa kali makan dalam sehari?" required>
+            <select id="diet-veggies">
+                <option value="">Apakah sudah makan sayur dan buah setiap hari?</option>
+                <option value="ya">Ya</option>
+                <option value="tidak">Tidak</option>
+            </select>
+            <textarea id="diet-foods" placeholder="Apa saja makanan yang dimakan? (Deskripsikan singkat)" rows="3" required></textarea>
         `;
     } else if (type === 'sleep') {
         document.getElementById('checker-title').textContent = 'Cek Pola Tidur';
         form.innerHTML = `
-            <input type="number" id="sleep-hours" placeholder="Berapa jam tidur per malam?" required>
-            <p>Apakah Anda tidur di waktu yang sama setiap hari? <select id="sleep-q1"><option value="ya">Ya</option><option value="tidak">Tidak</option></select></p>
+            <input type="time" id="sleep-bedtime" placeholder="Jam berapa kamu tidur?" required>
+            <input type="time" id="sleep-waketime" placeholder="Jam berapa kamu bangun tidur?" required>
+            <input type="number" id="sleep-hours" placeholder="Berapa jam kamu tidur?" readonly>
+            <select id="sleep-feeling">
+                <option value="">Apa perasaan kamu setelah bangun?</option>
+                <option value="segar">Segar</option>
+                <option value="lelah">Lelah</option>
+                <option value="lainnya">Lainnya</option>
+            </select>
+            <textarea id="sleep-habit" placeholder="Kebiasaan sebelum tidur? (Deskripsikan singkat)" rows="3" required></textarea>
         `;
+        // Hitung jam tidur otomatis
+        document.getElementById('sleep-bedtime').addEventListener('change', calculateSleepHours);
+        document.getElementById('sleep-waketime').addEventListener('change', calculateSleepHours);
     }
     form.innerHTML += '<button type="submit">Cek Sekarang</button>';
     form.dataset.type = type;
+}
+
+// Fungsi untuk menghitung jam tidur
+function calculateSleepHours() {
+    const bedtime = document.getElementById('sleep-bedtime').value;
+    const waketime = document.getElementById('sleep-waketime').value;
+    if (bedtime && waketime) {
+        const bed = new Date(`1970-01-01T${bedtime}:00`);
+        const wake = new Date(`1970-01-01T${waketime}:00`);
+        let diff = (wake - bed) / (1000 * 60 * 60);
+        if (diff < 0) diff += 24; // Jika bangun keesokan hari
+        document.getElementById('sleep-hours').value = diff.toFixed(1);
+    }
 }
 
 // Proses hasil
@@ -78,17 +106,25 @@ document.getElementById('checker-form').addEventListener('submit', function(e) {
         else if (bmi < 25) { result = `BMI Anda: ${bmi.toFixed(2)} (Normal). Selamat! Terus jaga pola hidup sehat dan semangat selalu!`; isGood = true; }
         else result = `BMI Anda: ${bmi.toFixed(2)} (Berlebih). Tips: Kurangi makanan manis dan olahraga rutin.`;
     } else if (type === 'diet') {
-        const q1 = document.getElementById('diet-q1').value;
-        const q2 = document.getElementById('diet-q2').value;
-        const q3 = document.getElementById('diet-q3').value;
-        const score = (q1 === 'ya' ? 1 : 0) + (q2 === 'ya' ? 1 : 0) + (q3 === 'ya' ? 1 : 0);
+        const meals = parseInt(document.getElementById('diet-meals').value);
+        const veggies = document.getElementById('diet-veggies').value;
+        const foods = document.getElementById('diet-foods').value.toLowerCase();
+        let score = 0;
+        if (meals >= 3) score += 1;
+        if (veggies === 'ya') score += 1;
+        if (foods.includes('sayur') || foods.includes('buah') || foods.includes('sehat')) score += 1;
         if (score >= 2) { result = 'Pola makan Anda baik! Selamat! Terus jaga pola hidup sehat dan semangat selalu!'; isGood = true; }
-        else result = 'Pola makan Anda perlu diperbaiki. Tips: Tambahkan sayur, buah, dan air putih ke dalam menu harian.';
+        else result = 'Pola makan Anda perlu diperbaiki. Tips: Makan 3 kali sehari, tambahkan sayur dan buah, hindari junk food.';
     } else if (type === 'sleep') {
-        const hours = document.getElementById('sleep-hours').value;
-        const q1 = document.getElementById('sleep-q1').value;
-        if (hours >= 7 && q1 === 'ya') { result = 'Pola tidur Anda baik! Selamat! Terus jaga pola hidup sehat dan semangat selalu!'; isGood = true; }
-        else result = 'Pola tidur Anda perlu diperbaiki. Tips: Tidur 7-9 jam per malam dan jaga jadwal tidur yang konsisten.';
+        const hours = parseFloat(document.getElementById('sleep-hours').value);
+        const feeling = document.getElementById('sleep-feeling').value;
+        const habit = document.getElementById('sleep-habit').value.toLowerCase();
+        let score = 0;
+        if (hours >= 7 && hours <= 9) score += 1;
+        if (feeling === 'segar') score += 1;
+        if (!habit.includes('gadget') && !habit.includes('kafein')) score += 1;
+        if (score >= 2) { result = 'Pola tidur Anda baik! Selamat! Terus jaga pola hidup sehat dan semangat selalu!'; isGood = true; }
+        else result = 'Pola tidur Anda perlu diperbaiki. Tips: Tidur 7-9 jam, hindari gadget sebelum tidur, dan jaga jadwal konsisten.';
     }
     document.getElementById('checker-section').classList.add('hidden');
     document.getElementById('result-section').classList.remove('hidden');
