@@ -3,58 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pola Hidup Sehat</title>
-    <link rel="stylesheet" href="style.css">
+    <title>RiseBalance - Cek Pola Kesehatan Anda</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Pola Hidup Sehat</h1>
-        
-        <!-- Halaman Awal: Profil -->
-        <div id="profile-section">
-            <h2>Lengkapi Profil Anda</h2>
+        <h1>RiseBalance</h1>
+        <div id="initial-form">
+            <h2>Masukkan Data Anda</h2>
             <form id="profile-form">
                 <input type="text" id="name" placeholder="Nama" required>
-                <input type="number" id="age" placeholder="Umur" required>
-                <select id="gender">
-                    <option value="">Pilih Jenis Kelamin</option>
+                <select id="gender" required>
+                    <option value="">Jenis Kelamin</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
-                <input type="number" id="height" placeholder="Tinggi Badan (cm)" step="0.1">
-                <input type="number" id="weight" placeholder="Berat Badan (kg)" step="0.1">
+                <input type="number" id="age" placeholder="Umur" required>
                 <button type="submit">Simpan Profil</button>
             </form>
         </div>
-        
-        <!-- Dashboard -->
-        <div id="dashboard" class="hidden">
-            <h2>Halo, <span id="user-name"></span>! Pilih Kategori Cek Kesehatan</h2>
-            <button onclick="showChecker('bmi')">Cek BMI</button>
-            <button onclick="showChecker('diet')">Cek Pola Makan</button>
-            <button onclick="showChecker('sleep')">Cek Pola Tidur</button>
-            <button onclick="logout()">Logout</button>
-        </div>
-        
-        <!-- Halaman Cek -->
-        <div id="checker-section" class="hidden">
-            <h2 id="checker-title"></h2>
-            <form id="checker-form">
-                <!-- Form akan diisi dinamis oleh JS -->
-                <button type="submit">Cek Sekarang</button>
-            </form>
-        </div>
-        
-        <!-- Hasil -->
-        <div id="result-section" class="hidden">
-            <h2>Hasil</h2>
-            <div id="result-content"></div>
-            <button onclick="downloadResult()">Unduh Hasil</button>
-            <div class="social-share">
-                <a href="#" id="share-twitter">Bagikan ke Twitter</a>
-                <a href="#" id="share-facebook">Bagikan ke Facebook</a>
+        <div id="main-app" style="display: none;">
+            <div class="profile">
+                <img id="profile-pic" src="https://via.placeholder.com/100" alt="Foto Profil">
+                <div>
+                    <p><strong>Nama:</strong> <span id="display-name"></span></p>
+                    <p><strong>Jenis Kelamin:</strong> <span id="display-gender"></span></p>
+                    <p><strong>Umur:</strong> <span id="display-age"></span></p>
+                    <input type="file" id="upload-pic" accept="image/*">
+                </div>
             </div>
-            <button onclick="backToDashboard()">Kembali ke Dashboard</button>
+            <div class="menu">
+                <button class="tab" data-tab="sleep">Cek Kualitas Tidur</button>
+                <button class="tab" data-tab="diet">Cek Pola Makan</button>
+                <button class="tab" data-tab="bmi">Cek BMI</button>
+                <button class="tab" data-tab="tips">Tips Pola Hidup Sehat</button>
+            </div>
+            <div id="sleep" class="section">
+                <h2>Cek Kualitas Tidur</h2>
+                <form id="sleep-form">
+                    <input type="time" id="sleep-time" required>
+                    <input type="time" id="wake-time" required>
+                    <select id="feeling">
+                        <option value="">Perasaan setelah bangun</option>
+                        <option value="Segar">Segar</option>
+                        <option value="Lelah">Lelah</option>
+                        <option value="Biasa">Biasa</option>
+                    </select>
+                    <input type="text" id="habit" placeholder="Kebiasaan sebelum tidur (e.g., minum kopi)">
+                    <button type="submit">Cek Kualitas</button>
+                </form>
+                <div id="sleep-result" class="result"></div>
+            </div>
+            <div id="diet" class="section">
+                <h2>Cek Pola Makan</h2>
+                <form id="diet-form">
+                    <input type="number" id="meals" placeholder="Jumlah asupan makanan berat per hari" required>
+                    <textarea id="foods" placeholder="Apa saja makanan yang dimakan hari ini?" required></textarea>
+                    <select id="veggies">
+                        <option value="">Apakah makan sayur/buah setiap hari atau minimal 1 minggu?</option>
+                        <option value="Ya">Ya</option>
+                        <option value="Tidak">Tidak</option>
+                    </select>
+                    <button type="submit">Cek Pola Makan</button>
+                </form>
+                <div id="diet-result" class="result"></div>
+            </div>
+            <div id="bmi" class="section">
+                <h2>Cek BMI</h2>
+                <form id="bmi-form">
+                    <input type="number" id="weight" placeholder="Berat badan (kg)" step="0.1" required>
+                    <input type="number" id="height" placeholder="Tinggi badan (cm)" required>
+                    <button type="submit">Hitung BMI</button>
+                </form>
+                <div id="bmi-result" class="result"></div>
+            </div>
+            <div id="tips" class="section">
+                <h2>Tips Pola Hidup Sehat</h2>
+                <div id="tips-content" class="result"></div>
+            </div>
+            <div class="history">
+                <h2>History Cek</h2>
+                <ul id="history-list"></ul>
+            </div>
+            <div class="logout">
+                <button id="logout-btn">Logout</button>
+            </div>
         </div>
     </div>
 
